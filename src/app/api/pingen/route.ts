@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generatePin, TEST_MSISDN } from "@/lib/mockPinStore";
+import { generatePin } from "@/lib/mockPinStore";
 
 /**
  * MOCK endpoint — simulates the "PIN Generation API" from the service spec.
@@ -28,6 +28,6 @@ export async function POST(req: NextRequest) {
     // mock can be tested without a real SMS gateway. Always populated for
     // the fixed test number.
     devPin: pin,
-    testMsisdn: TEST_MSISDN,
+   
   });
 }

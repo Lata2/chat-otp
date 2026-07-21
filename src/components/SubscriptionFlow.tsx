@@ -6,7 +6,7 @@ import { PhoneCheckIcon } from "@/components/PhoneCheckIcon";
 type Step = "phone" | "otp" | "success";
 
 const COUNTRY_CODE = "971";
-const TEST_MSISDN = "8827563077";
+
 
 export function SubscriptionFlow() {
   const [step, setStep] = useState<Step>("phone");
@@ -16,7 +16,7 @@ export function SubscriptionFlow() {
   const [error, setError] = useState<string | null>(null);
   const [devPin, setDevPin] = useState<string | null>(null);
 
-  const fullMsisdn = phone.trim();
+const fullMsisdn = `${COUNTRY_CODE}${phone.trim()}`;
   const isPhoneValid = /^\d{7,15}$/.test(fullMsisdn);
   const isOtpValid = /^\d{4}$/.test(otp);
 
@@ -65,10 +65,7 @@ export function SubscriptionFlow() {
     }
   }
 
-  function handleUseTestNumber() {
-    setPhone(TEST_MSISDN);
-    setError(null);
-  }
+
 
   function handleBack() {
     setStep("phone");
@@ -129,13 +126,9 @@ export function SubscriptionFlow() {
                   />
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleUseTestNumber}
-                  className="-mt-2 text-xs font-medium text-violet-500 hover:text-violet-700 hover:underline"
-                >
-                  Use test number ({TEST_MSISDN})
-                </button>
+              
+                 
+               
 
                 <button
                   type="button"

@@ -23,12 +23,8 @@ If you plan to connect this UI to the real billing endpoints, that's a
 business/compliance decision for you and Etisalat/your ad network to make —
 this repo intentionally stops at the UI + mock layer.
 
-## Test number
 
-Use 8827563077 — a tappable "Use test number" link is provided on the phone
-screen, and this number always resolves to a fixed test PIN: 1234.
-Any other number also works and generates a random 4-digit PIN, shown on screen
-in demo mode.
+
 
 ## Getting started
 

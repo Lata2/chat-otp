@@ -20,11 +20,11 @@ const PIN_TTL_MS = 5 * 60 * 1000; // 5 minutes
 const MAX_ATTEMPTS = 5;
 
 // A fixed test number + fixed PIN so QA can test the flow without reading logs.
-export const TEST_MSISDN = "8827563077";
-export const TEST_PIN = "1234";
+
+
 
 declare global {
-  // eslint-disable-next-line no-var
+
   var __mockPinStore: Map<string, PinRecord> | undefined;
 }
 
@@ -41,7 +41,8 @@ function normalizeMsisdn(msisdn: string): string {
 
 export function generatePin(msisdn: string): string {
   const key = normalizeMsisdn(msisdn);
-  const pin = key === TEST_MSISDN ? TEST_PIN : String(Math.floor(1000 + Math.random() * 9000));
+
+  const pin = String(Math.floor(1000 + Math.random() * 9000));
 
   getStore().set(key, {
     pin,
@@ -49,12 +50,10 @@ export function generatePin(msisdn: string): string {
     attempts: 0,
   });
 
-  // Demo-only convenience: log the generated PIN since there's no real SMS gateway.
   console.log(`[mock-pin] generated PIN ${pin} for ${key}`);
 
   return pin;
 }
-
 export type ValidationResult =
   | { ok: true }
   | { ok: false; reason: "NOT_FOUND" | "EXPIRED" | "TOO_MANY_ATTEMPTS" | "INVALID_PIN" };
