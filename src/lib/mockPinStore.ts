@@ -17,7 +17,7 @@ type PinRecord = {
 };
 
 const PIN_TTL_MS = 5 * 60 * 1000; // 5 minutes
-const MAX_ATTEMPTS = 5;
+const MAX_ATTEMPTS = 3;
 
 // A fixed test number + fixed PIN so QA can test the flow without reading logs.
 

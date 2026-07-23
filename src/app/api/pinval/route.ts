@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validatePin } from "@/lib/mockPinStore";
+import { recordVerification, recordSubscriptionOutcome } from "@/lib/analyticsStore";
 
-/**
- * MOCK endpoint — simulates the "PIN Validation API" from the service spec.
- * Does NOT call any real carrier/billing system and does not enroll anyone
- * in a real subscription. Local, in-memory validation only.
- */
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const msisdn = typeof body?.msisdn === "string" ? body.msisdn.trim() : "";
@@ -19,6 +15,12 @@ export async function POST(req: NextRequest) {
   }
 
   const result = validatePin(msisdn, pin);
+  await recordVerification(msisdn, result.ok, result.ok ? undefined : result.reason);
+
+  // 3 wrong PIN attempts ke baad subscription ko "failed" mark karo
+  if (!result.ok && result.reason === "TOO_MANY_ATTEMPTS") {
+    await recordSubscriptionOutcome(msisdn, false, "MANY_TIME_WRONG_OTP");
+  }
 
   if (result.ok) {
     return NextResponse.json({ response: "SUCCESS", errorMessage: "SUCCESS" });
