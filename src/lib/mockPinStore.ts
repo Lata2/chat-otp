@@ -1,14 +1,4 @@
-/**
- * MOCK PIN STORE — for local demo/testing only.
- *
- * This simulates the PIN generation + validation behaviour described in the
- * service spec (PIN Generation API / PIN Validation API) WITHOUT calling any
- * real carrier billing endpoint. Nothing here sends an SMS, charges a
- * subscriber, or talks to an operator network. It only exists so the UI flow
- * can be exercised end-to-end in development.
- *
- * Data lives in memory and resets whenever the dev server restarts.
- */
+
 
 type PinRecord = {
   pin: string;
@@ -18,10 +8,6 @@ type PinRecord = {
 
 const PIN_TTL_MS = 5 * 60 * 1000; // 5 minutes
 const MAX_ATTEMPTS = 3;
-
-// A fixed test number + fixed PIN so QA can test the flow without reading logs.
-
-
 
 declare global {
 
